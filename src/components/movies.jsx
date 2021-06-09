@@ -12,36 +12,62 @@ class Movies extends Component {
   };
 
   render() {
+    const { length: count } = this.state.movies;
+
+    if (count === 0)
+      return (
+        <p>
+          <b style={{ color: "purple", fontFamily: "serif", fontSize: 30 }}>
+            There are no movies in the database
+          </b>
+        </p>
+      );
+
     return (
-      <table className="table">
-        <thead>
-          <tr>
-            <td>Title</td>
-            <td>Genre</td>
-            <td>Stock</td>
-            <td>Rate</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          {this.state.movies.map((movie) => (
-            <tr key={movie._id}>
-              <td>{movie.title}</td>
-              <td>{movie.genre.name}</td>
-              <td>{movie.numberInStock}</td>
-              <td>{movie.dailyRentalRate}</td>
-              <td>
-                <button
-                  onClick={() => this.handleDelete(movie)}
-                  className="btn btn-danger btn-sm"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <React.Fragment>
+        <div className="table-responsive">
+          <p>
+            <b>There are {count} movies in the Database</b>
+          </p>
+          <table className="table table-striped table-bordered">
+            <thead className="table-primary">
+              <tr>
+                <td>
+                  <b>Title</b>
+                </td>
+                <td>
+                  <b>Genre</b>
+                </td>
+                <td>
+                  <b>Stock</b>
+                </td>
+                <td>
+                  <b>Rate</b>
+                </td>
+                <td></td>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.movies.map((movie) => (
+                <tr key={movie._id}>
+                  <td>{movie.title}</td>
+                  <td>{movie.genre.name}</td>
+                  <td>{movie.numberInStock}</td>
+                  <td>{movie.dailyRentalRate}</td>
+                  <td>
+                    <button
+                      onClick={() => this.handleDelete(movie)}
+                      className="btn btn-danger btn-sm"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </React.Fragment>
     );
   }
 }
